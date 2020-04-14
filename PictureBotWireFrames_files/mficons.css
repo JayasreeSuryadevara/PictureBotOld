@@ -1,0 +1,384 @@
+@font-face {
+	font-family: 'mficons';
+	src:url('mficons/mficons.eot?-o17mkw');
+	src:url('mficons/mficons.eot?#iefix-o17mkw') format('embedded-opentype'),
+		url('mficons/mficons.ttf?-o17mkw') format('truetype'),
+		url('mficons/mficons.woff?-o17mkw') format('woff'),
+		url('mficons/mficons.svg?-o17mkw#mficons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="mficon-"], [class*=" mficon-"] {
+	font-family: 'mficons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.mficon-circle:before {
+	content: "\e600";
+}
+.mficon-menu:before {
+	content: "\e601";
+}
+.mficon-appsopen:before {
+	content: "\e602";
+}
+.mficon-Synchronize:before {
+	content: "\e603";
+}
+.mficon-Refresh:before {
+	content: "\e604";
+}
+.mficon-Search:before {
+	content: "\e605";
+}
+.mficon-menu_filled:before {
+	content: "\e606";
+}
+.mficon-user_male_circle:before {
+	content: "\e607";
+}
+.mficon-user_female:before {
+	content: "\e608";
+}
+.mficon-user_male:before {
+	content: "\e609";
+}
+.mficon-group:before {
+	content: "\e60a";
+}
+.mficon-edit_user:before {
+	content: "\e60b";
+}
+.mficon-administrator:before {
+	content: "\e60c";
+}
+.mficon-trash2:before {
+	content: "\e60d";
+}
+.mficon-bill:before {
+	content: "\e60e";
+}
+.mficon-thumbnails:before {
+	content: "\e60f";
+}
+.mficon-add_user:before {
+	content: "\e610";
+}
+.mficon-fantasy:before {
+	content: "\e611";
+}
+.mficon-angle-down-circle:before {
+	content: "\e612";
+}
+.mficon-angle-down:before {
+	content: "\e613";
+}
+.mficon-angle-left-circle:before {
+	content: "\e614";
+}
+.mficon-angle-left:before {
+	content: "\e615";
+}
+.mficon-angle-right-circle:before {
+	content: "\e616";
+}
+.mficon-angle-right:before {
+	content: "\e617";
+}
+.mficon-angle-up-circle:before {
+	content: "\e618";
+}
+.mficon-angle-up:before {
+	content: "\e619";
+}
+.mficon-attention:before {
+	content: "\e61a";
+}
+.mficon-back2:before {
+	content: "\e61b";
+}
+.mficon-back-2:before {
+	content: "\e61c";
+}
+.mficon-bell:before {
+	content: "\e61d";
+}
+.mficon-bottom-arrow:before {
+	content: "\e61e";
+}
+.mficon-box1:before {
+	content: "\e61f";
+}
+.mficon-box2:before {
+	content: "\e620";
+}
+.mficon-check:before {
+	content: "\e621";
+}
+.mficon-close2:before {
+	content: "\e622";
+}
+.mficon-cloud-download:before {
+	content: "\e623";
+}
+.mficon-cloud-upload:before {
+	content: "\e624";
+}
+.mficon-cloud:before {
+	content: "\e625";
+}
+.mficon-edit2:before {
+	content: "\e626";
+}
+.mficon-help1:before {
+	content: "\e627";
+}
+.mficon-keypad:before {
+	content: "\e628";
+}
+.mficon-left-arrow:before {
+	content: "\e629";
+}
+.mficon-less:before {
+	content: "\e62a";
+}
+.mficon-loop:before {
+	content: "\e62b";
+}
+.mficon-medal:before {
+	content: "\e62c";
+}
+.mficon-micro:before {
+	content: "\e62d";
+}
+.mficon-more:before {
+	content: "\e62e";
+}
+.mficon-note:before {
+	content: "\e62f";
+}
+.mficon-paper-plane:before {
+	content: "\e630";
+}
+.mficon-photo:before {
+	content: "\e631";
+}
+.mficon-plus2:before {
+	content: "\e632";
+}
+.mficon-right-arrow:before {
+	content: "\e633";
+}
+.mficon-tools:before {
+	content: "\e634";
+}
+.mficon-users:before {
+	content: "\e635";
+}
+.mficon-sign_up:before {
+	content: "\e636";
+}
+.mficon-create_new:before {
+	content: "\e637";
+}
+.mficon-infinity:before {
+	content: "\e638";
+}
+.mficon-select_all:before {
+	content: "\e639";
+}
+.mficon-user_shield:before {
+	content: "\e63a";
+}
+.mficon-password:before {
+	content: "\e63b";
+}
+.mficon-edit_file:before {
+	content: "\e63c";
+}
+.mficon-box:before {
+	content: "\e63d";
+}
+.mficon-electric_megaphone:before {
+	content: "\e63e";
+}
+.mficon-waste:before {
+	content: "\e63f";
+}
+.mficon-exit:before {
+	content: "\e640";
+}
+.mficon-email:before {
+	content: "\e641";
+}
+.mficon-external_link:before {
+	content: "\e642";
+}
+.mficon-domain:before {
+	content: "\e643";
+}
+.mficon-xlarge_icons:before {
+	content: "\e644";
+}
+.mficon-christmas_star:before {
+	content: "\e645";
+}
+.mficon-credit_card:before {
+	content: "\e646";
+}
+.mficon-rectangle:before {
+	content: "\e647";
+}
+.mficon-ellipse:before {
+	content: "\e648";
+}
+.mficon-shopping_cart_empty:before {
+	content: "\e649";
+}
+.mficon-shopping_bag:before {
+	content: "\e64a";
+}
+.mficon-shop:before {
+	content: "\e64b";
+}
+.mficon-price_tag:before {
+	content: "\e64c";
+}
+.mficon-gift:before {
+	content: "\e64d";
+}
+.mficon-pie_chart:before {
+	content: "\e64e";
+}
+.mficon-upload:before {
+	content: "\e64f";
+}
+.mficon-unlock_filled:before {
+	content: "\e650";
+}
+.mficon-unlock:before {
+	content: "\e651";
+}
+.mficon-speech_bubble:before {
+	content: "\e652";
+}
+.mficon-share:before {
+	content: "\e653";
+}
+.mficon-settings:before {
+	content: "\e654";
+}
+.mficon-reload:before {
+	content: "\e655";
+}
+.mficon-plugin:before {
+	content: "\e656";
+}
+.mficon-paper_clip:before {
+	content: "\e657";
+}
+.mficon-opened_folder:before {
+	content: "\e658";
+}
+.mficon-lock_filled:before {
+	content: "\e659";
+}
+.mficon-lock:before {
+	content: "\e65a";
+}
+.mficon-help:before {
+	content: "\e65b";
+}
+
+.mficon-message:before {
+	content: "\e65g";
+}
+
+.mficon-folder:before {
+	content: "\e65c";
+}
+.mficon-flag:before {
+	content: "\e65d";
+}
+.mficon-filter:before {
+	content: "\e65e";
+}
+.mficon-download:before {
+	content: "\e65f";
+}
+.mficon-document:before {
+	content: "\e660";
+}
+.mficon-copy:before {
+	content: "\e661";
+}
+.mficon-close:before {
+	content: "\e662";
+}
+.mficon-checkmark:before {
+	content: "\e663";
+}
+.mficon-about:before {
+	content: "\e664";
+}
+.mficon-clock:before {
+	content: "\e665";
+}
+.mficon-multiple_devices:before {
+	content: "\e666";
+}
+.mficon-visible:before {
+	content: "\e667";
+}
+.mficon-trash:before {
+	content: "\e668";
+}
+.mficon-pin:before {
+	content: "\e669";
+}
+.mficon-online:before {
+	content: "\e66a";
+}
+.mficon-message:before {
+	content: "\e66b";
+}
+.mficon-invisible:before {
+	content: "\e66c";
+}
+.mficon-inbox:before {
+	content: "\e66d";
+}
+.mficon-location:before {
+	content: "\e66e";
+}
+.mficon-globe:before {
+	content: "\e66f";
+}
+.mficon-engineering:before {
+	content: "\e670";
+}
+.mficon-template:before {
+	content: "\e671";
+}
+.mficon-web_camera:before {
+	content: "\e672";
+}
+.mficon-right2:before {
+	content: "\e673";
+}
+.mficon-left:before {
+	content: "\e674";
+}
+.mficon-left2:before {
+	content: "\e675";
+}
