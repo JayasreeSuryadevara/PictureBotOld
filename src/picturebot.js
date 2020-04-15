@@ -1,24 +1,24 @@
 const SIZE = 400;
-const CANVAS = null;
 const INTERVAL = 45;
 const THRESHOLD = 60;
-
 const OBJECT_PROP = null;
 const OBSERVATIONS = [];
 const OBS_COUNT = 0;
-const DIMENSIONS = 2;    
+const DIMENSIONS = 2;
+
 
 export default class PictureBot {
   constructor(canvas) {
+    debugger;
+    this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
-    CANVAS = canvas;
     this.getCameraPermissions();
     this.startEvents();
   }
 
   getCameraPermissions() {
-    let constraints = { video: true };
-    let permission = navigator.mediaDevices.getUserMedia(constraints);
+    const constraints = { video: true };
+    const permission = navigator.mediaDevices.getUserMedia(constraints);
     permission.then((stream) => {
       let video = document.createElement('video');
       console.log('Got stream with constraints:', constraints);
@@ -28,16 +28,16 @@ export default class PictureBot {
       setInterval(updateImage, INTERVAL, video);
     }
     ).catch((err) => {
-        alert("Cannot access Camera!");
+        alert("Cannot access your camera!");
       }
     );
   }
 
   startEvents() {
-    const button = document.getElementById("button");
-    button.addEventListener("click" , this.learn());
+    const learnButton = document.getElementById("button");
+    learnButton.addEventListener("click" , () => { this.learn(); });
     const inputField = document.getElementById("image-name");
-    inputField.addEventListener("keyup", (e) => this.checkKeyPress(e));
+    inputField.addEventListener("keyup", (e) => { this.handleKeyPress(e); });
   }
 
   learn() {
@@ -54,7 +54,8 @@ export default class PictureBot {
     document.getElementById("image-name").value = "";
   }
 
-  checkKeyPress(event) {
+  handleKeyPress(event) {
+    console.log("event key for user-input", event.key);
     if (event.key == "Enter") {
       learn();
     }
@@ -94,7 +95,7 @@ export default class PictureBot {
   }
 
   updateImage(video) {
-    let context = CANVAS.getContext('2d');
+    let context = this.canvas.getContext('2d');
 
     let minSize = Math.min(video.videoWidth, video.videoHeight);
     let startX = (video.videoWidth - minSize) / 2;
@@ -123,7 +124,7 @@ export default class PictureBot {
     let minDist = null;
     for (let i = 1; i <= OBS_COUNT; i++) {
       let dist = Math.abs(currentObject - OBSERVATIONS[i].prop);
-      let dist = distance(currentObject, OBSERVATIONS[i].prop);
+      dist = distance(currentObject, OBSERVATIONS[i].prop);
       if (minDist == null || minDist > dist) {
         minDist = dist;
         neighbor = OBSERVATIONS[i];
@@ -180,7 +181,7 @@ export default class PictureBot {
   }
 
   drawBox(box) {
-    let context = CANVAS.getContext('2d');
+    let context = this.canvas.getContext('2d');
     context.beginPath();
     let deltaX = box.xMax - box.xMin;
     let deltaY = box.yMax - box.yMin;
@@ -216,7 +217,7 @@ export default class PictureBot {
   }
 
   updateCanvas(matrix) {
-    let context = CANVAS.getContext('2d');
+    let context = this.canvas.getContext('2d');
     let image = context.getImageData(0, 0, SIZE, SIZE);
 
     for (let i = 1; i <= SIZE; i++) {
