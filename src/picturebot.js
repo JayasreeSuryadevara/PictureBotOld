@@ -1,13 +1,12 @@
+const SIZE = 400;
+const CANVAS = null;
+const INTERVAL = 45;
+const THRESHOLD = 60;
 
-var SIZE = 300;
-var CANVAS = null;
-var INTERVAL = 45;
-var THRESHOLD = 60;
-
-var OBJECT_PROP = null;
-var OBSERVATIONS = [];
-var OBS_COUNT = 0;
-var DIMENSIONS = 2;    
+const OBJECT_PROP = null;
+const OBSERVATIONS = [];
+const OBS_COUNT = 0;
+const DIMENSIONS = 2;    
 
 export default class PictureBot {
   constructor(canvas) {
@@ -18,10 +17,10 @@ export default class PictureBot {
   }
 
   getCameraPermissions() {
-    var constraints = { video: true };
-    var permission = navigator.mediaDevices.getUserMedia(constraints);
+    let constraints = { video: true };
+    let permission = navigator.mediaDevices.getUserMedia(constraints);
     permission.then((stream) => {
-      var video = document.createElement('video');
+      let video = document.createElement('video');
       console.log('Got stream with constraints:', constraints);
       console.log('Using video device:', video);
       video.srcObject = stream;
@@ -42,7 +41,7 @@ export default class PictureBot {
   }
 
   learn() {
-    var name = document.getElementById("image-name").value;
+    let name = document.getElementById("image-name").value;
     if (name == "") {
       alert("Enter a name for this object.");
       return;
@@ -63,12 +62,12 @@ export default class PictureBot {
 
   processMatrix(matrix) {
     isolateObject(matrix);
-    var box = getBoundingBox(matrix);
-    var boxProp = getBoxProperties(box);
+    let box = getBoundingBox(matrix);
+    let boxProp = getBoxProperties(box);
 
-    var blackPixels = countBlackPixels(matrix);
-    var boxArea = boxProp.width * boxProp.length;
-    var fullness = blackPixels / boxArea;
+    let blackPixels = countBlackPixels(matrix);
+    let boxArea = boxProp.width * boxProp.length;
+    let fullness = blackPixels / boxArea;
 
     OBJECT_PROP = boxProp.aspectRatio;
 
@@ -83,9 +82,9 @@ export default class PictureBot {
   }
 
   countBlackPixels(matrix) {
-    var count = 0;
-    for (var i = 1; i <= SIZE; i++) {
-      for (var j = 1; j <= SIZE; j++) {
+    let count = 0;
+    for (let i = 1; i <= SIZE; i++) {
+      for (let j = 1; j <= SIZE; j++) {
         if (matrix[i][j] == 0) {
           count++;
         }
@@ -95,36 +94,36 @@ export default class PictureBot {
   }
 
   updateImage(video) {
-    var context = CANVAS.getContext('2d');
+    let context = CANVAS.getContext('2d');
 
-    var minSize = Math.min(video.videoWidth, video.videoHeight);
-    var startX = (video.videoWidth - minSize) / 2;
-    var startY = (video.videoHeight - minSize) / 2;
+    let minSize = Math.min(video.videoWidth, video.videoHeight);
+    let startX = (video.videoWidth - minSize) / 2;
+    let startY = (video.videoHeight - minSize) / 2;
 
     context.drawImage(video, startX, startY, minSize, minSize, 0, 0, SIZE, SIZE);
 
-    var image = context.getImageData(0, 0, SIZE, SIZE);
-    var matrix = getPixelMatrix(image.data);
+    let image = context.getImageData(0, 0, SIZE, SIZE);
+    let matrix = getPixelMatrix(image.data);
     processMatrix(matrix);
   }
 
   recognize(currentObject) {
-    var name;
+    let name;
     if (OBS_COUNT == 0) {
       name = '?';
     } else {
-      var neighbor = getNearestNeighbor(currentObject);
+      let neighbor = getNearestNeighbor(currentObject);
       name = neighbor.name;
     }
     document.getElementById("output").innerHTML = name;
   }
 
   getNearestNeighbor(currentObject) {
-    var neighbor = null;
-    var minDist = null;
-    for (var i = 1; i <= OBS_COUNT; i++) {
-      var dist = Math.abs(currentObject - OBSERVATIONS[i].prop);
-      var dist = distance(currentObject, OBSERVATIONS[i].prop);
+    let neighbor = null;
+    let minDist = null;
+    for (let i = 1; i <= OBS_COUNT; i++) {
+      let dist = Math.abs(currentObject - OBSERVATIONS[i].prop);
+      let dist = distance(currentObject, OBSERVATIONS[i].prop);
       if (minDist == null || minDist > dist) {
         minDist = dist;
         neighbor = OBSERVATIONS[i];
@@ -134,22 +133,22 @@ export default class PictureBot {
   }
 
   distance(p1, p2) {
-    var dist = 0;
-    for (var i = 1; i <= DIMENSIONS; i++) {
+    let dist = 0;
+    for (let i = 1; i <= DIMENSIONS; i++) {
       dist += (p1[i] - p2[i]) * (p1[i] - p2[i]);
     }
     return Math.sqrt(dist);
   }
 
   getBoxProperties(box) {
-    var prop = {
+    let prop = {
       length: 0,
       width: 0,
       aspectRatio: 0
     }
 
-    var deltaX = box.xMax - box.xMin + 1;
-    var deltaY = box.yMax - box.yMin + 1;
+    let deltaX = box.xMax - box.xMin + 1;
+    let deltaY = box.yMax - box.yMin + 1;
 
     prop.length = Math.max(deltaX, deltaY);
     prop.width = Math.min(deltaX, deltaY);
@@ -159,15 +158,15 @@ export default class PictureBot {
   }
 
   getBoundingBox(matrix) {
-    var bbox = {
+    let bbox = {
       xMin: SIZE + 1,
       xMax: 0,
       yMin: SIZE + 1,
       yMax: 0
     };
 
-    for (var y = 1; y <= SIZE; y++) {
-      for (var x = 1; x <= SIZE; x++) {
+    for (let y = 1; y <= SIZE; y++) {
+      for (let x = 1; x <= SIZE; x++) {
         if (matrix[y][x] == 0) {
           bbox.yMin = Math.min(y, bbox.yMin);
           bbox.yMax = Math.max(y, bbox.yMax);
@@ -181,17 +180,17 @@ export default class PictureBot {
   }
 
   drawBox(box) {
-    var context = CANVAS.getContext('2d');
+    let context = CANVAS.getContext('2d');
     context.beginPath();
-    var deltaX = box.xMax - box.xMin;
-    var deltaY = box.yMax - box.yMin;
+    let deltaX = box.xMax - box.xMin;
+    let deltaY = box.yMax - box.yMin;
     context.rect(box.xMin, box.yMin, deltaX, deltaY);
     context.stroke();
   }
 
   isolateObject(matrix) {
-    for (var i = 1; i <= SIZE; i++) {
-      for (var j = 1; j <= SIZE; j++) {
+    for (let i = 1; i <= SIZE; i++) {
+      for (let j = 1; j <= SIZE; j++) {
         if (matrix[i][j] < THRESHOLD) {
           matrix[i][j] = 0;
         } else {
@@ -202,14 +201,14 @@ export default class PictureBot {
   }
 
   getPixelMatrix(dataArray) {
-    var matrix = [];
-    for (var i = 1; i <= SIZE; i++) {
+    let matrix = [];
+    for (let i = 1; i <= SIZE; i++) {
       matrix[i] = [];
-      for (var j = 1; j <= SIZE; j++) {
-        var groupIndex = (i - 1) * SIZE * 4 + (j - 1) * 4;
-        var red = dataArray[groupIndex + 0];
-        var green = dataArray[groupIndex + 1];
-        var blue = dataArray[groupIndex + 2];
+      for (let j = 1; j <= SIZE; j++) {
+        let groupIndex = (i - 1) * SIZE * 4 + (j - 1) * 4;
+        let red = dataArray[groupIndex + 0];
+        let green = dataArray[groupIndex + 1];
+        let blue = dataArray[groupIndex + 2];
         matrix[i][j] = (red + green + blue) / 3;
       }
     }
@@ -217,12 +216,12 @@ export default class PictureBot {
   }
 
   updateCanvas(matrix) {
-    var context = CANVAS.getContext('2d');
-    var image = context.getImageData(0, 0, SIZE, SIZE);
+    let context = CANVAS.getContext('2d');
+    let image = context.getImageData(0, 0, SIZE, SIZE);
 
-    for (var i = 1; i <= SIZE; i++) {
-      for (var j = 1; j <= SIZE; j++) {
-        var groupIndex = (i - 1) * SIZE * 4 + (j - 1) * 4;
+    for (let i = 1; i <= SIZE; i++) {
+      for (let j = 1; j <= SIZE; j++) {
+        let groupIndex = (i - 1) * SIZE * 4 + (j - 1) * 4;
         image.data[groupIndex + 0] = matrix[i][j];
         image.data[groupIndex + 1] = matrix[i][j];
         image.data[groupIndex + 2] = matrix[i][j];
