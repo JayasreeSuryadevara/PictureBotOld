@@ -7,7 +7,7 @@ html {
   display: flex;
   justify-content: center;
 }
-#camera {
+#target {
   background-color: whitesmoke;
   height: 400px;
   width: 400px;

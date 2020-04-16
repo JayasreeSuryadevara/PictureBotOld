@@ -1,5 +1,4 @@
-const SIZE = 400;
-const INTERVAL = 45;
+const SIZE = 300;
 const THRESHOLD = 60;
 const OBJECT_PROP = null;
 const OBSERVATIONS = [];
@@ -9,28 +8,26 @@ const DIMENSIONS = 2;
 
 export default class PictureBot {
   constructor(canvas) {
-    debugger;
     this.canvas = canvas;
     this.ctx = canvas.getContext("2d");
-    this.getCameraPermissions();
+    this.listenToImageDrop();
     this.startEvents();
   }
 
-  getCameraPermissions() {
-    const constraints = { video: true };
-    const permission = navigator.mediaDevices.getUserMedia(constraints);
-    permission.then((stream) => {
-      let video = document.createElement('video');
-      console.log('Got stream with constraints:', constraints);
-      console.log('Using video device:', video);
-      video.srcObject = stream;
-      video.play();
-      setInterval(updateImage, INTERVAL, video);
-    }
-    ).catch((err) => {
-        alert("Cannot access your camera!");
-      }
-    );
+  listenToImageDrop() {
+    this.canvas.addEventListener('drop', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+
+      this.drawImage(e.dataTransfer.files);
+    });
+
+    this.canvas.addEventListener('dragover', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+
+      e.dataTransfer.dropEffect = 'copy';
+    });
   }
 
   startEvents() {
@@ -38,6 +35,35 @@ export default class PictureBot {
     learnButton.addEventListener("click" , () => { this.learn(); });
     const inputField = document.getElementById("image-name");
     inputField.addEventListener("keyup", (e) => { this.handleKeyPress(e); });
+  }
+
+  drawImage(fileList) {
+    // const output = document.getElementById('output');
+    let file = null;
+    let imageURL = null;
+    for (let i = 0; i < fileList.length; i++) {
+      console.log("type",fileList[i].type )
+      if (fileList[i].type.match(/^image\//)) {
+        file = fileList[i];
+        break;
+      }
+    }
+    if (file !== null) {
+      imageURL = URL.createObjectURL(file);
+    }
+    this.loadAndDrawImage(imageURL)
+  }
+
+  loadAndDrawImage(imageURL) {
+    let context = this.canvas.getContext('2d');
+    let image = new Image();
+    image.onload = function() {
+      context.drawImage(image, 0, 0, SIZE, SIZE);     
+    }
+    image.src = imageURL;
+    let matrix = this.getPixelMatrix(image.data);
+    debugger;
+    this.processMatrix(matrix);
   }
 
   learn() {
@@ -55,18 +81,18 @@ export default class PictureBot {
   }
 
   handleKeyPress(event) {
-    console.log("event key for user-input", event.key);
     if (event.key == "Enter") {
-      learn();
+      this.learn();
     }
   }
 
   processMatrix(matrix) {
-    isolateObject(matrix);
-    let box = getBoundingBox(matrix);
-    let boxProp = getBoxProperties(box);
+    debugger;
+    this.isolateObject(matrix);
+    let box = this.getBoundingBox(matrix);
+    let boxProp = this.getBoxProperties(box);
 
-    let blackPixels = countBlackPixels(matrix);
+    let blackPixels = this.countBlackPixels(matrix);
     let boxArea = boxProp.width * boxProp.length;
     let fullness = blackPixels / boxArea;
 
@@ -76,10 +102,10 @@ export default class PictureBot {
     OBJECT_PROP[1] = boxProp.aspectRatio;
     OBJECT_PROP[2] = fullness;
 
-    recognize(OBJECT_PROP);
+    this.recognize(OBJECT_PROP);
 
-    updateCanvas(matrix);
-    drawBox(box);
+    this.updateCanvas(matrix);
+    this.drawBox(box);
   }
 
   countBlackPixels(matrix) {
@@ -94,26 +120,12 @@ export default class PictureBot {
     return count;
   }
 
-  updateImage(video) {
-    let context = this.canvas.getContext('2d');
-
-    let minSize = Math.min(video.videoWidth, video.videoHeight);
-    let startX = (video.videoWidth - minSize) / 2;
-    let startY = (video.videoHeight - minSize) / 2;
-
-    context.drawImage(video, startX, startY, minSize, minSize, 0, 0, SIZE, SIZE);
-
-    let image = context.getImageData(0, 0, SIZE, SIZE);
-    let matrix = getPixelMatrix(image.data);
-    processMatrix(matrix);
-  }
-
   recognize(currentObject) {
     let name;
     if (OBS_COUNT == 0) {
       name = '?';
     } else {
-      let neighbor = getNearestNeighbor(currentObject);
+      let neighbor = this.getNearestNeighbor(currentObject);
       name = neighbor.name;
     }
     document.getElementById("output").innerHTML = name;
@@ -124,7 +136,7 @@ export default class PictureBot {
     let minDist = null;
     for (let i = 1; i <= OBS_COUNT; i++) {
       let dist = Math.abs(currentObject - OBSERVATIONS[i].prop);
-      dist = distance(currentObject, OBSERVATIONS[i].prop);
+      dist = this.distance(currentObject, OBSERVATIONS[i].prop);
       if (minDist == null || minDist > dist) {
         minDist = dist;
         neighbor = OBSERVATIONS[i];

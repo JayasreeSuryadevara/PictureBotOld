@@ -1,13 +1,12 @@
 import PictureBot from './picturebot';
 
 // Constant to manipulate canvas width and height (square)
-const SIZE = 400;
+const SIZE = 300;
 
 
-let canvas = document.getElementById('camera');
+const canvas = document.getElementById('canvas');
 canvas.width = SIZE;
 canvas.height = SIZE;
 
 
-// Invoke PictureBot with the canvas
 new PictureBot(canvas);
